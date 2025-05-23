@@ -141,7 +141,7 @@ export default function EditSection() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"}>actualizar</Button>
+              <Button variant={"outline"} type="submit">actualizar</Button>
               <Link href="/dashboard/sections">
                 <Button variant="destructive">cancel</Button>
               </Link>

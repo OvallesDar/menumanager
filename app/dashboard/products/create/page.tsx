@@ -203,7 +203,7 @@ export default function CreateProduct() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"}>crear</Button>
+              <Button variant={"outline"} type="submit">crear</Button>
               <Link href="/dashboard/products">
                 <Button variant="destructive">cancel</Button>
               </Link>

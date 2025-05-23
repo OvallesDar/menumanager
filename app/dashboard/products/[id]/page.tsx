@@ -225,7 +225,7 @@ export default function EditProduct() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"}>actualizar</Button>
+              <Button variant={"outline"} type="submit">actualizar</Button>
               <Link href="/dashboard/products">
                 <Button variant="destructive">cancel</Button>
               </Link>

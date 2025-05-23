@@ -157,7 +157,7 @@ export default function CreateCategory() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"}>crear</Button>
+              <Button variant={"outline"} type="submit">crear</Button>
               <Link href="/dashboard/categories">
                 <Button variant="destructive">cancel</Button>
               </Link>

@@ -177,7 +177,7 @@ export default function EditCategory() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"}>actualizar</Button>
+              <Button variant={"outline"} type="submit">actualizar</Button>
               <Link href="/dashboard/categories">
                 <Button variant="destructive">cancel</Button>
               </Link>
