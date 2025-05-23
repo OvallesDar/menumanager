@@ -93,7 +93,7 @@ export default function SectionsProvider({ children }) {
 
   const updateCategory = (updatedCategory) => {
     const oldCategory = categories.find(
-      (category) => category.id === updateCategory.id
+      (category) => category.id === updatedCategory.id
     );
 
     if (oldCategory.sectionid !== updatedCategory.sectionid) {
