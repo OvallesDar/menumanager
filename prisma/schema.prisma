@@ -1,0 +1,44 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  email          String    @unique
+  hashedPassword String
+  name           String
+  image          String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Sections {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title Json
+  categories Categories[] @relation("SectionCategoriesRelation")
+  isactive Boolean @default(false)
+}
+
+model Categories {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  title Json
+  products Products[] @relation("CategoryProductsRelation")
+  isactive Boolean @default(false)
+  sectionid String @db.ObjectId
+  sectionrelation Sections @relation("SectionCategoriesRelation", fields: [sectionid], references: [id])
+}
+
+model Products {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title Json
+  price Float
+  image String
+  isactive Boolean @default(false)
+  categoryid String @db.ObjectId
+  categoryrelation Categories @relation("CategoryProductsRelation", fields: [categoryid], references: [id])
+}
