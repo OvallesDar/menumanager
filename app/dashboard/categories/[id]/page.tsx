@@ -82,6 +82,7 @@ export default function EditCategory() {
       const res = await fetch(`/api/categories/${id}`, {
         method: "put",
         body: JSON.stringify(categoryUpdate),
+        credentials: "include",
       });
 
       const data = await res.json();

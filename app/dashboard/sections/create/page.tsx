@@ -53,6 +53,7 @@ export default function CreateSection() {
       const res = await fetch("/api/sections", {
         method: "post",
         body: JSON.stringify(section),
+        credentials: "include",
       });
 
       const data = await res.json();

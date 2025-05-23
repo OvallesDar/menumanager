@@ -101,6 +101,7 @@ export default function EditProduct() {
       const res = await fetch(`/api/products/${id}`, {
         method: "put",
         body: formData,
+        credentials: "include",
       });
 
       const data = await res.json();

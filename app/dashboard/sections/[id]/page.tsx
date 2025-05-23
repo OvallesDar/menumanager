@@ -69,6 +69,7 @@ export default function EditSection() {
       const res = await fetch(`/api/sections/${id}`, {
         method: "put",
         body: JSON.stringify(sectionUpdate),
+        credentials: "include",
       });
 
       const data = await res.json();

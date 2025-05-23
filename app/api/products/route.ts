@@ -15,7 +15,7 @@ cloudinary.config({
 });
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req, secret });
+  const token = await getToken({req, secret, cookieName: "__Secure-authjs.session-token"})
   if (!token) return NextResponse.redirect(new URL("/", req.url));
   try {
     const formData = await req.formData();

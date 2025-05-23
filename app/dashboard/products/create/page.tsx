@@ -85,6 +85,7 @@ export default function CreateProduct() {
       const res = await fetch("/api/products", {
         method: "post",
         body: formData,
+        credentials: "include",
       });
 
       const data = await res.json();

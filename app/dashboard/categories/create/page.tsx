@@ -64,6 +64,7 @@ export default function CreateCategory() {
       const res = await fetch("/api/categories", {
         method: "post",
         body: JSON.stringify(category),
+        credentials: "include",
       });
 
       const data = await res.json();
