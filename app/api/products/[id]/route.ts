@@ -83,7 +83,7 @@ export async function PUT(req: NextRequest) {
             {
               upload_preset: "usersPictures",
               resource_type: "image",
-              folder: `products/${category.id}`,
+              folder: "products/",
               public_id: id,
             },
             (error, result) => {
