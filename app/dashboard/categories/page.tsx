@@ -41,7 +41,7 @@ export default function Categories() {
           <TableBody>
             {categories.map((category: Category) => (
               <TableRow key={category.id}>
-                <TableCell className="w-full break-words whitespace-normal capitalize">
+                <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                   {category.title.es}
                 </TableCell>
                 <TableCell className="relative">

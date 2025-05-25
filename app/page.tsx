@@ -10,7 +10,7 @@ export default function SignIn() {
 
   return (
     <div className="flex flex-col justify-center items-center gap-3 h-[50vh]">
-      <h2 className="capitalize font-bold text-xl text-center pt-6">iniciar sesión</h2>
+      <h2 className="first-letter:uppercase font-bold text-xl text-center pt-6">iniciar sesión</h2>
 
       <form
         onSubmit={handleSubmit}

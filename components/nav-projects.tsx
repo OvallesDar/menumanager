@@ -34,7 +34,7 @@ export function NavProjects({
                 className={pathname === item.url ? "bg-gray-300" : ""}
                 href={item.url}
                 onClick={() =>
-                  isMobile ? toggleSidebar() : /* open ? toggleSidebar() : */ null
+                  isMobile ? toggleSidebar() : null
                 }
               >
                 {item.icon && <item.icon />}

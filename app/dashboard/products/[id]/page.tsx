@@ -217,7 +217,7 @@ export default function EditProduct() {
                 />
               </Label>
             </Button>
-            <Label className="flex flex-row justify-center items-center gap-1 capitalize">
+            <Label className="flex flex-row justify-center items-center gap-1">
               activo
               <Switch
                 checked={productUpdate.isactive}

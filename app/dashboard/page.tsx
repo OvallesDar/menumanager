@@ -22,12 +22,12 @@ export default function Page() {
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-3 bg-muted/50 rounded-xl p-5">
-          <h2 className="capitalize text-xl">secciones</h2>
+          <h2 className="first-letter:uppercase text-xl">secciones</h2>
           <Table className="min-w-full">
             <TableBody>
               {sections.slice(0, 4).map((section: Section) => (
                 <TableRow key={section.id}>
-                  <TableCell className="w-full break-words whitespace-normal capitalize">
+                  <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                     {section.title.es}
                   </TableCell>
                   <TableCell>
@@ -52,12 +52,12 @@ export default function Page() {
           </Link>
         </div>
         <div className="flex flex-col gap-1 bg-muted/50 rounded-xl p-5">
-          <h2 className="capitalize text-xl">categorías</h2>
+          <h2 className="first-letter:uppercase text-xl">categorías</h2>
           <Table className="min-w-full">
             <TableBody>
               {categories.slice(-4).map((category: Category) => (
                 <TableRow key={category.id}>
-                  <TableCell className="w-full break-words whitespace-normal capitalize">
+                  <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                     {category.title.es}
                   </TableCell>
                   <TableCell>
@@ -82,12 +82,12 @@ export default function Page() {
           </Link>
         </div>
         <div className="flex flex-col gap-1 bg-muted/50 rounded-xl p-5">
-          <h2 className="capitalize text-xl">productos</h2>
+          <h2 className="first-letter:uppercase text-xl">productos</h2>
           <Table className="min-w-full">
             <TableBody>
               {products.slice(-4).map((product: Product) => (
                 <TableRow key={product.id}>
-                  <TableCell className="w-full break-words whitespace-normal capitalize">
+                  <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                     {product.title.es}
                   </TableCell>
                   <TableCell>
@@ -111,7 +111,6 @@ export default function Page() {
           </Link>
         </div>
       </div>
-      <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min"></div>
     </div>
   );
 }

@@ -55,7 +55,7 @@ export default function Products() {
               <SelectValue placeholder="Filter by categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">todas las categorías</SelectItem>
+              <SelectItem className="capitalize" value="all">todas las categorías</SelectItem>
               {categories.map((category: Category) => (
                 <SelectItem
                   className="capitalize"
@@ -82,7 +82,7 @@ export default function Products() {
       {filteredCategories.map((category: Category) => (
         <section key={category.id} className="flex flex-col gap-4">
           <h2
-            className={`text-lg pl-4 capitalize ${
+            className={`text-lg pl-4 first-letter:uppercase ${
               category.isactive ? "text-black" : "text-red-600"
             }`}
           >
@@ -102,7 +102,7 @@ export default function Products() {
                 <TableBody>
                   {category.products.map((product: Product) => (
                     <TableRow key={product.id}>
-                      <TableCell className="w-full break-words whitespace-normal capitalize">
+                      <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                         {product.title.es}
                       </TableCell>
                       <TableCell className="text-right ">

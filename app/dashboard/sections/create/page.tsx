@@ -80,7 +80,7 @@ export default function CreateSection() {
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">
       <div className="flex items-center gap-3 px-4">
         <div className="bg-muted/50 flex-1 rounded-xl p-5 max-w-screen overflow-x-auto">
-          <h2 className="capitalize pb-3 text-center">crear sección</h2>
+          <h2 className="first-letter:uppercase pb-3 text-center">crear sección</h2>
 
           <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
             <Label>

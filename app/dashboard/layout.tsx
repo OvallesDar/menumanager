@@ -45,7 +45,7 @@ export default function RootLayout({
                     {parts.map((part, index) => (
                       <React.Fragment key={index}>
                         <BreadcrumbItem>
-                          <BreadcrumbPage className="capitalize">
+                          <BreadcrumbPage className="first-letter:uppercase">
                             {part}
                           </BreadcrumbPage>
                         </BreadcrumbItem>
@@ -58,6 +58,7 @@ export default function RootLayout({
             </header>
             <div className="mt-16">
               <ContentWrapper>{children}</ContentWrapper>
+              <footer className="bg-muted/50 min-h-[10vh] flex-1 rounded-xl mx-4 p-4"></footer>
             </div>
           </SidebarInset>
         </SidebarProvider>

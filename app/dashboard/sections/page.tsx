@@ -41,7 +41,7 @@ export default function Sections() {
           <TableBody>
             {sections.map((section: Section) => (
               <TableRow key={section.id}>
-                <TableCell className="w-full break-words whitespace-normal capitalize">
+                <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                   {section.title.es}
                 </TableCell>
                 <TableCell className="relative">
