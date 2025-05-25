@@ -120,8 +120,8 @@ export default function CreateProduct() {
               name="categoryid"
               onValueChange={(e) => handleChange(e, "categoryid")}
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Categoría" />
+              <SelectTrigger className="w-full capitalize">
+                <SelectValue placeholder="categoría" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category: Category) => {
