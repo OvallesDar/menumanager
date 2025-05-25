@@ -27,13 +27,13 @@ export const signInSchema = object({
 export const titleSchema = object({
   es: string({ required_error: "Spanish title is required" })
     .min(1, "Spanish title is required")
-    .max(20, "Spanish title must be less than 20 characters"),
+    .max(50, "Spanish title must be less than 50 characters"),
   en: string({ required_error: "English title is required" })
     .min(1, "English title is required")
-    .max(20, "English title must be less than 20 characters"),
+    .max(50, "English title must be less than 50 characters"),
   fr: string({ required_error: "French title is required" })
     .min(1, "French title is required")
-    .max(20, "French title must be less than 20 characters"),
+    .max(50, "French title must be less than 50 characters"),
 });
 
 export const createSectionScheme = object({
