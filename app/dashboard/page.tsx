@@ -11,7 +11,8 @@ import { Section } from "@/types/section";
 import Loading from "@/components/loading";
 
 export default function Page() {
-  const { sections, categories, products, loading, error } = useContext(SectionsContext);
+  const { sections, categories, products, loading, error } =
+    useContext(SectionsContext);
 
   if (loading) return <Loading />;
 
@@ -30,9 +31,11 @@ export default function Page() {
                     {section.title.es}
                   </TableCell>
                   <TableCell>
-                    <Button size={"icon"} variant={"outline"}>
-                      <FilePenLine />
-                    </Button>
+                    <Link href={`/dashboard/sections/${section.id}`}>
+                      <Button size={"icon"} variant={"outline"}>
+                        <FilePenLine />
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
@@ -52,20 +55,20 @@ export default function Page() {
           <h2 className="capitalize text-xl">categorías</h2>
           <Table className="min-w-full">
             <TableBody>
-              {categories
-                .slice(-4)
-                .map((category: Category) => (
-                  <TableRow key={category.id}>
-                    <TableCell className="w-full break-words whitespace-normal capitalize">
-                      {category.title.es}
-                    </TableCell>
-                    <TableCell>
+              {categories.slice(-4).map((category: Category) => (
+                <TableRow key={category.id}>
+                  <TableCell className="w-full break-words whitespace-normal capitalize">
+                    {category.title.es}
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/dashboard/categories/${category.id}`}>
                       <Button size={"icon"} variant={"outline"}>
                         <FilePenLine />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
 
@@ -82,20 +85,20 @@ export default function Page() {
           <h2 className="capitalize text-xl">productos</h2>
           <Table className="min-w-full">
             <TableBody>
-              {products
-                .slice(-4)
-                .map((product: Product) => (
-                  <TableRow key={product.id}>
-                    <TableCell className="w-full break-words whitespace-normal capitalize">
-                      {product.title.es}
-                    </TableCell>
-                    <TableCell>
+              {products.slice(-4).map((product: Product) => (
+                <TableRow key={product.id}>
+                  <TableCell className="w-full break-words whitespace-normal capitalize">
+                    {product.title.es}
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/dashboard/products/${product.id}`}>
                       <Button size={"icon"} variant={"outline"}>
                         <FilePenLine />
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <Link

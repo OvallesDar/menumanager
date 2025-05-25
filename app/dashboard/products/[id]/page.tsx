@@ -199,20 +199,20 @@ export default function EditProduct() {
                 required
               />
             </Label>
+             {typeof productUpdate.image === "string" ? (
+              <Label>
+                Image
+                <small className="lowercase break-words">{productUpdate.image.split("/").at(-1)}</small>
+              </Label>
+            ) : null}
             <Button asChild variant={"outline"}>
               <Label className="flex-row">
                 <ImagePlus />
-                cambiar imagen
-                <span className="lowercase">
-                  {productUpdate.image &&
-                  typeof productUpdate.image === "string"
-                    ? productUpdate.image.split("/").at(-1)
-                    : ""}
-                </span>
+                {productUpdate.image instanceof File ? "imagen cargada ✅" : "cambiar imagen"}
                 <Input
                   type="file"
                   name="image"
-                  className="hidden"                
+                  className="hidden"
                   onChange={(e) => handleChange(e, "image")}
                 />
               </Label>
@@ -226,7 +226,9 @@ export default function EditProduct() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"} type="submit">actualizar</Button>
+              <Button variant={"outline"} type="submit">
+                actualizar
+              </Button>
               <Link href="/dashboard/products">
                 <Button variant="destructive">cancel</Button>
               </Link>

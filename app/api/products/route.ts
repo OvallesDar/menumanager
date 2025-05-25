@@ -15,8 +15,16 @@ cloudinary.config({
 });
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({req, secret, cookieName: "__Secure-authjs.session-token"})
-  if (!token) return NextResponse.redirect(new URL("/", req.url));
+  const token = await getToken({
+    req,
+    secret,
+    ...(process.env.NODE_ENV === "production"
+      ? { cookieName: "__Secure-authjs.session-token" }
+      : {}),
+  });
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const formData = await req.formData();
 
