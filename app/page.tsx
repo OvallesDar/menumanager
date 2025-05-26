@@ -18,12 +18,12 @@ export default function SignIn() {
       >
         <Label>
           email
-          <Input name="email" type="email" />
+          <Input name="email" type="email" required/>
         </Label>
 
         <Label>
           password
-          <Input name="password" type="password" />
+          <Input name="password" type="password" required/>
         </Label>
         <Button variant="outline">
           sign in

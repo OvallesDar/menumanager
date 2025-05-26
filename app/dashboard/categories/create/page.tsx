@@ -92,7 +92,9 @@ export default function CreateCategory() {
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">
       <div className="flex items-center gap-3 px-4">
         <div className="bg-muted/50 flex-1 rounded-xl p-5 max-w-screen overflow-x-auto">
-          <h2 className="first-letter:uppercase pb-3 text-center">crear categoría</h2>
+          <h2 className="first-letter:uppercase pb-3 text-center">
+            crear categoría
+          </h2>
 
           <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
             <Select
@@ -117,7 +119,7 @@ export default function CreateCategory() {
                 })}
               </SelectContent>
             </Select>
-            <Label className="uppercase">
+            <Label>
               título español
               <Textarea
                 className="resize-none"
@@ -125,7 +127,6 @@ export default function CreateCategory() {
                 name="es"
                 value={category.title.es}
                 onChange={(e) => handleChange(e, "es")}
-                
               />
             </Label>
             <Label>
@@ -159,7 +160,9 @@ export default function CreateCategory() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"} type="submit">crear</Button>
+              <Button variant={"outline"} type="submit">
+                crear
+              </Button>
               <Link href="/dashboard/categories">
                 <Button variant="destructive">cancel</Button>
               </Link>
