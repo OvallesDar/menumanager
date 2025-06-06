@@ -43,6 +43,9 @@ export async function POST(req: NextRequest) {
         isactive,
         sectionid,
       },
+      include: {
+        products: true
+      }
     });
 
     return NextResponse.json(newCategory);

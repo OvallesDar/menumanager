@@ -5,5 +5,5 @@ export interface Section {
     id?: string
     title: Title,
     isactive: boolean
-    categories: Category[]
+    categories?: Category[]
 }

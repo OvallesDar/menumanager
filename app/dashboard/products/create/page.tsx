@@ -10,69 +10,37 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ImagePlus } from "lucide-react";
-import { Product } from "@/types/product";
 import { SectionsContext } from "@/app/context/sectionContext";
 import { Category } from "@/types/category";
-import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
+import { useFormInput } from "@/hooks/use-form-input";
+import { useFormSubmit } from "@/hooks/use-form-submit";
+import { Product } from "@/types/product";
+
+const INITIAL_PRODUCT = {
+  title: {
+    es: "",
+    en: "",
+    fr: "",
+  },
+  price: "",
+  isactive: false,
+  categoryid: "",
+  image: null,
+};
 
 export default function CreateProduct() {
   const { categories, addProduct } = useContext(SectionsContext);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
-  const [product, setProduct] = useState<Product>({
-    title: {
-      es: "",
-      en: "",
-      fr: "",
-    },
-    price: "",
-    isactive: false,
-    categoryid: "",
-    image: null,
-  });
+  const { data: product, handleChange } = useFormInput(INITIAL_PRODUCT);
+  const { loading, error, handleSubmit } = useFormSubmit<Product>();
 
-  const router = useRouter();
-
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | string
-      | boolean,
-    name: string
-  ) => {
-    const value =
-      typeof event === "string" || typeof event === "boolean"
-        ? event
-        : event.target instanceof HTMLInputElement &&
-          event.target.type === "file"
-        ? event.target.files?.[0]
-        : event.target.value;
-
-    setProduct((prevData) => {
-      if (name === "es" || name === "en" || name === "fr") {
-        return {
-          ...prevData,
-          title: {
-            ...prevData.title,
-            [name]: value,
-          },
-        };
-      }
-
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
+  const submitProduct = handleSubmit({
+    data: product,
+    url: "/api/products",
+    useFormData: true,
+    transformToFormData: (product) => {
       const formData = new FormData();
       formData.append("es", product.title.es);
       formData.append("en", product.title.en);
@@ -81,30 +49,11 @@ export default function CreateProduct() {
       formData.append("isactive", product.isactive ? "true" : "false");
       formData.append("categoryid", product.categoryid);
       formData.append("image", product.image!);
-
-      const res = await fetch("/api/products", {
-        method: "post",
-        body: formData,
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-      addProduct(data);
-      router.push("/dashboard/products");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown Error");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+      return formData;
+    },
+    onSuccess: addProduct,
+    redirectTo: "/dashboard/products",
+  });
 
   if (loading) return <Loading />;
 
@@ -112,9 +61,11 @@ export default function CreateProduct() {
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">
       <div className="flex items-center gap-3 px-4">
         <div className="bg-muted/50 flex-1 rounded-xl p-5 max-w-screen overflow-x-auto">
-          <h2 className="first-letter:uppercase pb-3 text-center">crear producto</h2>
+          <h2 className="first-letter:uppercase pb-3 text-center">
+            crear producto
+          </h2>
 
-          <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
+          <form className="flex flex-col w-full gap-3" onSubmit={submitProduct}>
             <Select
               required
               name="categoryid"
@@ -204,7 +155,9 @@ export default function CreateProduct() {
               />
             </Label>
             <div className="flex justify-center gap-3">
-              <Button variant={"outline"} type="submit">crear</Button>
+              <Button variant={"outline"} type="submit">
+                crear
+              </Button>
               <Link href="/dashboard/products">
                 <Button variant="destructive">cancel</Button>
               </Link>

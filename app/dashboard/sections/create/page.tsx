@@ -4,76 +4,33 @@ import Loading from "@/components/loading";
 import { Button, Label } from "@/components/ui";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { useFormInput } from "@/hooks/use-form-input";
+import { useFormSubmit } from "@/hooks/use-form-submit";
+import { Section } from "@/types/section";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
-export default function CreateSection() {
-  const { addSection } = useContext(SectionsContext);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
-  const [section, setSection] = useState({
+const INITIAL_SECTION = {
     title: {
       es: "",
       en: "",
       fr: "",
     },
     isactive: false,
-  });
+  }
 
-  const router = useRouter();
+export default function CreateSection() {
+  const { addSection } = useContext(SectionsContext);
+  const { data: section, handleChange } = useFormInput(INITIAL_SECTION)
+  const { loading, error, handleSubmit } = useFormSubmit<Section>()
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement> | boolean,
-    name: string
-  ) => {
-    const value = typeof event === "boolean" ? event : event.target.value;
-    setSection((prevData) => {
-      if (name === "es" || name === "en" || name === "fr") {
-        return {
-          ...prevData,
-          title: {
-            ...prevData.title,
-            [name]: value,
-          },
-        };
-      }
-
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch("/api/sections", {
-        method: "post",
-        body: JSON.stringify(section),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-      addSection(data);
-      router.push("/dashboard/sections");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown Error");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  const submitSection = handleSubmit({
+    data: section,
+    url: "/api/sections",
+    onSuccess: addSection,
+    redirectTo: "/dashboard/sections"
+  })
+    
   if (loading) return <Loading />;
 
   return (
@@ -82,7 +39,7 @@ export default function CreateSection() {
         <div className="bg-muted/50 flex-1 rounded-xl p-5 max-w-screen overflow-x-auto">
           <h2 className="first-letter:uppercase pb-3 text-center">crear sección</h2>
 
-          <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
+          <form className="flex flex-col w-full gap-3" onSubmit={submitSection}>
             <Label>
               título español
               <Textarea

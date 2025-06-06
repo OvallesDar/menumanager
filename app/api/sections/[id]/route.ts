@@ -44,6 +44,9 @@ export async function PUT(req: NextRequest) {
     const updatedSection = await prisma.sections.update({
       where: { id },
       data: updateSection,
+      include: {
+        categories: true
+      }
     });
 
     return NextResponse.json(updatedSection);

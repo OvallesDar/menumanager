@@ -100,7 +100,7 @@ export default function Products() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {category.products.map((product: Product) => (
+                  {category.products?.map((product: Product) => (
                     <TableRow key={product.id}>
                       <TableCell className="w-full break-words whitespace-normal first-letter:uppercase">
                         {product.title.es}

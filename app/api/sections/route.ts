@@ -66,6 +66,9 @@ export async function POST(req: NextRequest) {
         title: lowerCaseTitle,
         isactive,
       },
+      include: {
+        categories: true
+      }
     });
 
     return NextResponse.json(newSection);

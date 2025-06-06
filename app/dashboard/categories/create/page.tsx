@@ -10,81 +10,35 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SectionsContext } from "@/app/context/sectionContext";
-import { Section } from "@/types/section";
-import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
+import { useFormInput } from "@/hooks/use-form-input";
+import { useFormSubmit } from "@/hooks/use-form-submit";
+import { Section } from "@/types/section";
+import { Category } from "@/types/category";
+
+const INITIAL_CATEGORY = {
+  title: {
+    es: "",
+    en: "",
+    fr: "",
+  },
+  isactive: false,
+  sectionid: "",
+};
 
 export default function CreateCategory() {
   const { sections, addCategory } = useContext(SectionsContext);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
-  const [category, setCategory] = useState({
-    title: {
-      es: "",
-      en: "",
-      fr: "",
-    },
-    isactive: false,
-    sectionid: "",
+  const { data: category, handleChange } = useFormInput(INITIAL_CATEGORY);
+  const { loading, error, handleSubmit } = useFormSubmit<Category>();
+
+  const submitCategory = handleSubmit({
+    data: category,
+    url: "/api/categories",
+    onSuccess: addCategory,
+    redirectTo: "/dashboard/categories",
   });
-
-  const router = useRouter();
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement> | boolean | string,
-    name: string
-  ) => {
-    const value =
-      typeof event === "string" || typeof event === "boolean"
-        ? event
-        : event.target.value;
-    setCategory((prevData) => {
-      if (name === "es" || name === "en" || name === "fr") {
-        return {
-          ...prevData,
-          title: {
-            ...prevData.title,
-            [name]: value,
-          },
-        };
-      }
-
-      return {
-        ...prevData,
-        [name]: event,
-      };
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch("/api/categories", {
-        method: "post",
-        body: JSON.stringify(category),
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-      addCategory(data);
-      router.push("/dashboard/categories");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown Error");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) return <Loading />;
 
@@ -96,7 +50,10 @@ export default function CreateCategory() {
             crear categoría
           </h2>
 
-          <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col w-full gap-3"
+            onSubmit={submitCategory}
+          >
             <Select
               required
               name="sectionid"

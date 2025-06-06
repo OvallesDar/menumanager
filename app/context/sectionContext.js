@@ -57,7 +57,7 @@ export default function SectionsProvider({ children }) {
     setSections((prevSections) =>
       prevSections.map((section) =>
         section.id === updatedSection.id
-          ? { ...section, ...updatedSection }
+          ? updatedSection
           : section
       )
     );

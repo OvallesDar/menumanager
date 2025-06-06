@@ -7,5 +7,5 @@ export interface Category {
     title: Title,
     isactive: boolean
     sectionid: string
-    products: Product[]
+    products?: Product[]
 }
