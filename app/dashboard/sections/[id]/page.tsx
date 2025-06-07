@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import { Section } from "@/types/section";
 import Loading from "@/components/loading";
 
@@ -39,8 +39,6 @@ export default function EditSection() {
     name: string
   ) => {
     const value = typeof event === "boolean" ? event : event.target.value;
-
-    if (!sectionUpdate) return;
 
     setSectionUpdate((prevData) => {
       if (!prevData) return prevData;

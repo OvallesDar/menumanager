@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { SectionsContext } from "../context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import Loading from "@/components/loading";
 import CardDashboard from "@/components/card-dashboard";
 

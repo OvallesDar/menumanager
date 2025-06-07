@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { SubmitHandlerProps } from "@/types/handleSubmit"
+import { SubmitHandlerProps } from "@/types/handle-submit"
 
 export function useFormSubmit<T>() {
   const [loading, setLoading] = useState(false);

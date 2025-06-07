@@ -1,5 +1,5 @@
 "use client";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import Loading from "@/components/loading";
 import { Button, Label } from "@/components/ui";
 import { Switch } from "@/components/ui/switch";

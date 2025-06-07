@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { ImagePlus } from "lucide-react";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import { Category } from "@/types/category";
 import Loading from "@/components/loading";
 import { useFormInput } from "@/hooks/use-form-input";

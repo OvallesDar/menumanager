@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Title } from "@/types/title"
 
 export function useFormInput<T extends {title: Title}>(INITIAL_STATE: T) {
-  const [data, setData] = useState(INITIAL_STATE);
+  const [data, setData] = useState<T>(INITIAL_STATE);
 
   const handleChange = (
     event:
@@ -20,6 +20,7 @@ export function useFormInput<T extends {title: Title}>(INITIAL_STATE: T) {
         : event.target.value;
 
     setData((prevData) => {
+      if (!prevData) return prevData;
       if (name === "es" || name === "en" || name === "fr") {
         return {
           ...prevData,

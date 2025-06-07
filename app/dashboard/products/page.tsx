@@ -18,7 +18,7 @@ import {
 import { FilePenLine, FilePlus2 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import { Category } from "@/types/category";
 import { Product } from "@/types/product";
 

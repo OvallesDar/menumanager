@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
-import SectionsProvider, { SectionsContext } from "../context/sectionContext";
+import SectionsProvider, { SectionsContext } from "../context/section-context";
 import Loading from "@/components/loading";
 
 export default function RootLayout({

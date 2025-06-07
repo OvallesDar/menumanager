@@ -11,7 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import { usePathname, useRouter } from "next/navigation";
 import { Section } from "@/types/section";
 import { Category } from "@/types/category";
@@ -53,8 +53,6 @@ export default function EditCategory() {
       typeof event === "string" || typeof event === "boolean"
         ? event
         : event.target.value;
-
-    if (!categoryUpdate) return;
 
     setCategoryUpdate((prevData) => {
       if (!prevData) return prevData;

@@ -13,7 +13,7 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { ImagePlus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { SectionsContext } from "@/app/context/sectionContext";
+import { SectionsContext } from "@/app/context/section-context";
 import { Category } from "@/types/category";
 import { Product } from "@/types/product";
 import Loading from "@/components/loading";
@@ -60,8 +60,6 @@ export default function EditProduct() {
           event.target.type === "file"
         ? event.target.files?.[0]
         : event.target.value;
-
-    if (!productUpdate) return;
 
     setProductUpdate((prevData) => {
       if (!prevData) return prevData;
