@@ -17,7 +17,7 @@ export default function SignIn() {
         className="flex flex-col w-full lg:w-1/2 gap-3 px-3"
       >
         <Label>
-          email
+          user
           <Input name="email" type="email" required/>
         </Label>
 
