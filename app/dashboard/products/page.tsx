@@ -30,7 +30,8 @@ export default function Products() {
   });
 
   const filteredCategories = categories.filter(
-    (category: Category) => filters.category === "all" || category.id === filters.category
+    (category: Category) =>
+      filters.category === "all" || category.id === filters.category
   );
 
   const handleChange = (value: string) => {
@@ -55,7 +56,9 @@ export default function Products() {
               <SelectValue placeholder="Filter by categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem className="capitalize" value="all">todas las categorías</SelectItem>
+              <SelectItem className="capitalize" value="all">
+                todas las categorías
+              </SelectItem>
               {categories.map((category: Category) => (
                 <SelectItem
                   className="capitalize"

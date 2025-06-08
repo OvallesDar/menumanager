@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useContext } from "react";
 
 export default function Categories() {
-  const { categories} = useContext(SectionsContext);
+  const { categories } = useContext(SectionsContext);
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">

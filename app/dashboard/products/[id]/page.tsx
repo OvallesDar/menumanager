@@ -56,20 +56,20 @@ export default function EditProduct() {
     method: "put",
     useFormData: true,
     transformToFormData: (productUpdate) => {
-      const formData = new FormData()
-      formData.append("id", productUpdate.id!)
-      formData.append("es", productUpdate.title.es)
-      formData.append("en", productUpdate.title.en)
-      formData.append("fr", productUpdate.title.fr)
-      formData.append("price", productUpdate.price)
-      formData.append("isactive", productUpdate.isactive ? "true" : "false")
-      formData.append("categoryid", productUpdate.categoryid)
-      formData.append("image", productUpdate.image!)
-      return formData
+      const formData = new FormData();
+      formData.append("id", productUpdate.id!);
+      formData.append("es", productUpdate.title.es);
+      formData.append("en", productUpdate.title.en);
+      formData.append("fr", productUpdate.title.fr);
+      formData.append("price", productUpdate.price);
+      formData.append("isactive", productUpdate.isactive ? "true" : "false");
+      formData.append("categoryid", productUpdate.categoryid);
+      formData.append("image", productUpdate.image!);
+      return formData;
     },
     onSuccess: updateProduct,
-    redirectTo: "/dashboard/products"
-  })
+    redirectTo: "/dashboard/products",
+  });
 
   if (loading) return <Loading />;
 
