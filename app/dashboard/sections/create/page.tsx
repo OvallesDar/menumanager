@@ -30,8 +30,10 @@ export default function CreateSection() {
     onSuccess: addSection,
     redirectTo: "/dashboard/sections"
   })
-    
+
+  
   if (loading) return <Loading />;
+  if(section == null) return
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">

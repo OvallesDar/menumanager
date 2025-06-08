@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Title } from "@/types/title"
 
-export function useFormInput<T extends {title: Title}>(INITIAL_STATE: T) {
-  const [data, setData] = useState<T>(INITIAL_STATE);
+export function useFormInput<T extends {title: Title}>(INITIAL_STATE: T | null) {
+  const [data, setData] = useState(INITIAL_STATE);
 
-  const handleChange = (
+  const handleChange = useCallback((
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | string
@@ -36,7 +36,7 @@ export function useFormInput<T extends {title: Title}>(INITIAL_STATE: T) {
         [name]: value,
       };
     });
-  };
+  }, []);
 
-  return { data, handleChange };
+  return useMemo(() => ({ data, handleChange, setData }), [data, handleChange, setData]);
 }

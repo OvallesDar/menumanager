@@ -55,7 +55,9 @@ export default function CreateProduct() {
     redirectTo: "/dashboard/products",
   });
 
+  
   if (loading) return <Loading />;
+  if(product == null) return
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">

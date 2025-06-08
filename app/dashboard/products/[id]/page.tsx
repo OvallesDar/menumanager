@@ -10,22 +10,26 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { ImagePlus } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { SectionsContext } from "@/app/context/section-context";
 import { Category } from "@/types/category";
 import { Product } from "@/types/product";
 import Loading from "@/components/loading";
+import { useFormInput } from "@/hooks/use-form-input";
+import { useFormSubmit } from "@/hooks/use-form-submit";
 
 export default function EditProduct() {
   const { categories, products, updateProduct } = useContext(SectionsContext);
-  const [error, setError] = useState<null | string>(null);
-  const [loading, setLoading] = useState(true);
-  const [productUpdate, setProductUpdate] = useState<Product | null>(null);
-  const params = usePathname();
-  const id = params.split("/").at(-1);
-  const router = useRouter();
+  const {
+    data: productUpdate,
+    setData: setProductUpdate,
+    handleChange,
+  } = useFormInput<Product>(null);
+  const { loading, error, handleSubmit, setLoading } = useFormSubmit<Product>();
+
+  const id = usePathname().split("/").at(-1);
 
   useEffect(() => {
     setLoading(true);
@@ -44,81 +48,28 @@ export default function EditProduct() {
       setProductUpdate(null);
     }
     setLoading(false);
-  }, [id, products]);
+  }, [id, products, setProductUpdate, setLoading]);
 
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-      | boolean
-      | string,
-    name: string
-  ) => {
-    const value =
-      typeof event === "string" || typeof event === "boolean"
-        ? event
-        : event.target instanceof HTMLInputElement &&
-          event.target.type === "file"
-        ? event.target.files?.[0]
-        : event.target.value;
-
-    setProductUpdate((prevData) => {
-      if (!prevData) return prevData;
-      if (name === "es" || name === "en" || name === "fr") {
-        return {
-          ...prevData,
-          title: {
-            ...prevData.title,
-            [name]: value,
-          },
-        };
-      }
-
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      if (!productUpdate) return;
-
-      const formData = new FormData();
-      formData.append("id", productUpdate.id!);
-      formData.append("es", productUpdate.title.es);
-      formData.append("en", productUpdate.title.en);
-      formData.append("fr", productUpdate.title.fr);
-      formData.append("price", productUpdate.price);
-      formData.append("isactive", productUpdate.isactive ? "true" : "false");
-      formData.append("categoryid", productUpdate.categoryid);
-      formData.append("image", productUpdate.image!);
-
-      const res = await fetch(`/api/products/${id}`, {
-        method: "put",
-        body: formData,
-        credentials: "include",
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error);
-      }
-      updateProduct(data);
-      router.push("/dashboard/products");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("Unknown Error");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  const submitProduct = handleSubmit({
+    data: productUpdate,
+    url: `/api/products/${id}`,
+    method: "put",
+    useFormData: true,
+    transformToFormData: (productUpdate) => {
+      const formData = new FormData()
+      formData.append("id", productUpdate.id!)
+      formData.append("es", productUpdate.title.es)
+      formData.append("en", productUpdate.title.en)
+      formData.append("fr", productUpdate.title.fr)
+      formData.append("price", productUpdate.price)
+      formData.append("isactive", productUpdate.isactive ? "true" : "false")
+      formData.append("categoryid", productUpdate.categoryid)
+      formData.append("image", productUpdate.image!)
+      return formData
+    },
+    onSuccess: updateProduct,
+    redirectTo: "/dashboard/products"
+  })
 
   if (loading) return <Loading />;
 
@@ -128,7 +79,7 @@ export default function EditProduct() {
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">
       <div className="flex items-center gap-3 px-4">
         <div className="bg-muted/50 flex-1 rounded-xl p-5 max-w-screen overflow-x-auto">
-          <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
+          <form className="flex flex-col w-full gap-3" onSubmit={submitProduct}>
             <Select
               value={productUpdate.categoryid}
               onValueChange={(e) => handleChange(e, "categoryid")}
@@ -197,16 +148,20 @@ export default function EditProduct() {
                 required
               />
             </Label>
-             {typeof productUpdate.image === "string" ? (
+            {typeof productUpdate.image === "string" ? (
               <Label>
                 Image
-                <small className="lowercase break-words">{productUpdate.image.split("/").at(-1)}</small>
+                <small className="lowercase break-words">
+                  {productUpdate.image.split("/").at(-1)}
+                </small>
               </Label>
             ) : null}
             <Button asChild variant={"outline"}>
               <Label className="flex-row">
                 <ImagePlus />
-                {productUpdate.image instanceof File ? "imagen cargada ✅" : "cambiar imagen"}
+                {productUpdate.image instanceof File
+                  ? "imagen cargada ✅"
+                  : "cambiar imagen"}
                 <Input
                   type="file"
                   name="image"
